@@ -1,0 +1,12 @@
+commit ab7a32758ba74e3aa2b994dd9b956c3cf84da1be (HEAD -> master)
+Author: Ivanukovich_Vladimir <vov4ic.00@mail.ru>
+Date:   Sat Feb 16 21:42:14 2019 +0300
+
+    add status.txt
+
+commit 5de9d63a4b0f5683415588fff87be76a03db6bf8
+Author: Ivanukovich_Vladimir <vov4ic.00@mail.ru>
+Date:   Sat Feb 16 21:39:37 2019 +0300
+
+    add .gitignore
+
