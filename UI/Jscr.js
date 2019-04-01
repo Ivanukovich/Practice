@@ -6,7 +6,7 @@ var photoPosts = [
       hashTags: ['ocean', 'summer'],
       createdAt: new Date('2018-02-23T23:00:00'),
       author: 'Иванов Иван',
-      photoLink: 'http://ont.by/webroot/delivery/files/news/2018/02/22/Dom.jpg'
+      photoLink: 'https://kukarta.ru/wp-content/uploads/2018/08/37306991_214360475893695_5608411481012961280_n.jpg'
      },
      {
         id: '1',
@@ -15,7 +15,7 @@ var photoPosts = [
         hashTags: ['ocean', 'summer'],
         createdAt: new Date('2018-02-23T23:00:00'),
         author: 'Иванов Иваныч',
-        photoLink: 'http://ont.by/webroot/delivery/files/news/2018/02/22/Dom.jpg'            
+        photoLink: 'https://cdn3.iconfinder.com/data/icons/essential-pack-2/48/6-Photo-256.png'            
     },
     {
         id: '2',
@@ -24,7 +24,7 @@ var photoPosts = [
         hashTags: ['ocean', 'summer'],
         createdAt: new Date('2018-02-23T23:02:00'),
         author: 'Иванович Иван',
-        photoLink: 'http://ont.by/webroot/delivery/files/news/2018/02/22/Dom.jpg'
+        photoLink: 'https://cdn3.iconfinder.com/data/icons/essential-pack-2/48/6-Photo-256.png'
     },
     {
         id: '3',
@@ -33,7 +33,7 @@ var photoPosts = [
         hashTags: ['ocean', 'summer'],
         createdAt: new Date('2018-02-23T23:00:00'),
         author: 'Иванов Иван',
-        photoLink: 'http://ont.by/webroot/delivery/files/news/2018/02/22/Dom.jpg'
+        photoLink: 'https://cdn3.iconfinder.com/data/icons/essential-pack-2/48/6-Photo-256.png'
     },
     {
         id: '4',
@@ -42,7 +42,7 @@ var photoPosts = [
         hashTags: ['ocean', 'summer'],
         createdAt: new Date('2018-02-23T23:01:00'),
         author: 'Иванов Иван',
-        photoLink: 'http://ont.by/webroot/delivery/files/news/2018/02/22/Dom.jpg'
+        photoLink: 'https://kukarta.ru/wp-content/uploads/2018/08/37306991_214360475893695_5608411481012961280_n.jpg'
     },
     {
         id: '5',
@@ -51,7 +51,7 @@ var photoPosts = [
         hashTags: ['summer'],
         createdAt: new Date('2018-02-23T23:03:00'),
         author: 'Иванов Иван',
-        photoLink: 'http://ont.by/webroot/delivery/files/news/2018/02/22/Dom.jpg'
+        photoLink: 'https://cdn3.iconfinder.com/data/icons/essential-pack-2/48/6-Photo-256.png'
     }
   ];
 class PostList {
@@ -207,7 +207,120 @@ class PostList {
           return notValidate;
       }
 }
-const PhotoObject = new PostList (photoPosts); 
+class View{
+    constructor()
+    {
+        this._posts = document.getElementById("MyPhotos");
+        this._posts.hidden = true;
+        this._postModel = document.getElementById("Model").content.querySelector(".Photo");
+        this._count = 0;
+        this._authors = [];
+    }
+    showPhotoPosts ()
+    {
+        this._posts.hidden = false;
+    }
+    addPhotoPost(_photoPost)
+    {
+        if (!this._authors.includes(_photoPost.author))
+        {
+            this._authors.push(_photoPost.author);
+        }
+        this._posts.appendChild(this.getPost(_photoPost));
+        this._count++;
+        
+    }
+    getPost (_photoPost)
+    {
+        const Model = this._postModel.cloneNode(true);
+        Model.setAttribute('data-id', this._count);
+        Model.querySelector('img').setAttribute('src', _photoPost.photoLink);
+        return Model;
+        
+    }
+    removePhotoPost(_id)
+    {
+        this._posts.querySelector('[data-id="' + _id + '"]').remove();
+        for(let i = _id + 1; i < this._count; ++i){ 
+            this._posts.querySelector('[data-id="' + i + '"]').setAttribute('data-id', i - 1); 
+        }
+        this._count--;
+            
+    }
+    editPhotoPost(_id, _photoPost)
+    {
+        const edit = this._posts.querySelector('[data-id="' + _id + '"]');
+        edit.querySelector('img').setAttribute('src', _photoPost.photoLink);
+    }
+    personalInformation()
+    {
+        const avatar = document.getElementById("avatar").querySelector("img");
+        avatar.setAttribute('src', "https://сезоны-года.рф/sites/default/files/images/shkolnikam/gora.jpg");
+        const name = document.getElementById("name").querySelector("a");
+        name.textContent = "имя";
+    }
+    authorsShow()
+    {
+        const authorsForShow = document.getElementById("textInput");
+        const authorNew = document.createElement("p");
+        for (let i = 0; i < this._authors.length; ++i)
+        {
+            authorNew.textContent = this._authors[i];
+            authorsForShow.appendChild(authorNew.cloneNode(true));
+        }
+    }
+}
+var methods = (function(){
+    const _posts = new PostList([]);
+    const _view = new View();
+    function addPost(post){
+        if(_posts.addPhotoPost(post)){
+            _view.addPhotoPost(post);
+        }
+    }
+    function getPost(id){
+        if(_posts.getPhotoPost(id)){
+            _view.getPost(id);
+        }
+    }
+    function removePost(id){
+        if(_posts.removePhotoPost(id)){
+            _view.removePhotoPost(id);
+        }
+    }
+    function editPost(id, post){
+        if(_posts.editPhotoPost(id, post)){
+            _view.editPhotoPost(id, post);
+        }
+    }
+    function addPost(post){
+        if(_posts.addPhotoPost(post)){
+            _view.addPhotoPost(post);
+        }
+    }
+    function authorDisplay(){
+        _view.authorsShow();
+    }
+    function userInformation(){
+        _view.personalInformation();
+    }
+    function showPosts(){
+        _view.showPhotoPosts();
+    }
+    return{
+        addPost,
+        getPost,
+        removePost,
+        editPost,
+        editPost,
+        addPost,
+        authorDisplay,
+        userInformation,
+        showPosts
+    };
+}());
+ 
+/*const PhotoObject = new PostList (photoPosts); 
 console.log (PhotoObject.getPhotoPost('0'));
 console.log (PhotoObject.removePhotoPost('0'));
 console.log (PhotoObject.getPhotoPost('0'));
@@ -226,3 +339,13 @@ console.log (PhotoObject.addAll(photoPosts));
 console.log (PhotoObject.getPhotoPosts(0, 5, {likes:'2'}));
 console.log (PhotoObject.getPhotoPosts(0, 2, {createdAt: new Date('2018-02-23T23:00:00')}));
 console.log (PhotoObject.getPhotoPosts(0, 2, ocean));
+*/
+const view = new View ();
+view.showPhotoPosts();
+view.addPhotoPost(photoPosts[1]);
+view.addPhotoPost(photoPosts[2]);
+view.addPhotoPost(photoPosts[3]);
+view.removePhotoPost(1)
+view.editPhotoPost(1, photoPosts[4]);
+view.personalInformation();
+view.authorsShow();
