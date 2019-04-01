@@ -2,9 +2,10 @@
 <html>
 <head>
 <link rel="stylesheet" href="styles.css">
+
 <title>Main Page</title>
 </head>
-
+<body>
 <header>
     <div id = "name">
          <a>name</a>
@@ -16,7 +17,8 @@
         <img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-camera-512.png" alt=""> 
      </div>
 </header>
-
+<div id = "textInput">
+    </div>
 <div id = "photo">
     <img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-camera-512.png" alt=""> 
 </div>
@@ -65,36 +67,14 @@
 </div>
 
 <div id = "MyPhotos">
-    <div id = "Photo1">
-        <img src="https://cdn3.iconfinder.com/data/icons/essential-pack-2/48/6-Photo-256.png" alt="">
-    </div>
-    <div id = "Photo2">
-        <img src="https://cdn3.iconfinder.com/data/icons/essential-pack-2/48/6-Photo-256.png" alt="">
-    </div>
-    <div id = "Photo3">
-        <img src="https://cdn3.iconfinder.com/data/icons/essential-pack-2/48/6-Photo-256.png" alt="">
-    </div>
-    <div id = "Photo4">
-        <img src="https://cdn3.iconfinder.com/data/icons/essential-pack-2/48/6-Photo-256.png" alt="">
-    </div>
-    <div id = "Photo5">
-        <img src="https://cdn3.iconfinder.com/data/icons/essential-pack-2/48/6-Photo-256.png" alt="">
-    </div>
-    <div id = "Photo6">
-        <img src="https://cdn3.iconfinder.com/data/icons/essential-pack-2/48/6-Photo-256.png" alt="">
-    </div>
-    <div id = "Photo7">
-        <img src="https://cdn3.iconfinder.com/data/icons/essential-pack-2/48/6-Photo-256.png" alt="">
-    </div>
-    <div id = "Photo8">
-        <img src="https://cdn3.iconfinder.com/data/icons/essential-pack-2/48/6-Photo-256.png" alt="">
-    </div>
-    <div id = "Photo9">
-        <img src="https://cdn3.iconfinder.com/data/icons/essential-pack-2/48/6-Photo-256.png" alt="">
-    </div>
-    <div id = "Photo10">
-        <img src="https://cdn3.iconfinder.com/data/icons/essential-pack-2/48/6-Photo-256.png" alt="">
-    </div>
+    <template id = "Model">
+        <div class = "Photo" data-id = "">
+            <img src="https://cdn3.iconfinder.com/data/icons/essential-pack-2/48/6-Photo-256.png" alt="">
+            <div id = "Author">
+                <p>Иванович Иван</p>
+            </div>
+        </div>
+    </template>
     <div id = "LoadMore">
         <a>Load more...</a>
     </div>
@@ -105,6 +85,8 @@
          <a>© IV, 2019</a>
     </div>
 </footer>
-
+<script src="Jscr.js">
+</script>
+</body>
 
 </html>
