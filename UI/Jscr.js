@@ -67,7 +67,7 @@ class PostList {
             return null;
           }
       }
-      removePhotoPost(_id)
+      removePhotoPostHere(_id)
       {
         if (typeof _id == "string"){
             this._posts.splice(_id, 1);
@@ -85,7 +85,7 @@ class PostList {
       {
           if (this.validatePhotoPost(_photoPostAdd))
           {
-             _photoPostAdd.id = this._posts.length;
+             _photoPostAdd.id = this._posts.length + "";
             this._posts.push(_photoPostAdd);
             return true;
           }
@@ -211,14 +211,31 @@ class View{
     constructor()
     {
         this._posts = document.getElementById("MyPhotos");
-        this._posts.hidden = true;
         this._postModel = document.getElementById("Model").content.querySelector(".Photo");
         this._count = 0;
+        this._display = 0;
         this._authors = [];
     }
     showPhotoPosts ()
     {
-        this._posts.hidden = false;
+        if (this._display < photoPosts.length)
+        {
+            for (let i = this._display; i < this._display + 3; ++i)
+            {
+              if (i < photoPosts.length)
+                {
+                    this.addPhotoPost(photoPosts[i]);
+                }
+            }
+            if (this._display + 3 <= photoPosts.length)
+            {
+                this._display += 3;
+            }
+            else
+            {
+                this._display += (photoPosts.length - this._display) % 3;
+            }
+        }
     }
     addPhotoPost(_photoPost)
     {
@@ -319,9 +336,9 @@ var methods = (function(){
         showPosts
     };
 }());
- 
-/*const PhotoObject = new PostList (photoPosts); 
-console.log (PhotoObject.getPhotoPost('0'));
+myStorage = localStorage;
+const PhotoObject = new PostList (photoPosts); 
+/*console.log (PhotoObject.getPhotoPost('0'));
 console.log (PhotoObject.removePhotoPost('0'));
 console.log (PhotoObject.getPhotoPost('0'));
 console.log (PhotoObject.addPhotoPost(PhotoObject._posts[1]));
@@ -337,15 +354,74 @@ console.log (PhotoObject.editPhotoPost('1', PhotoObject._posts[3]));
 console.log (PhotoObject.getPhotoPosts(0, 3, {author:'Иванов Иван'}));
 console.log (PhotoObject.addAll(photoPosts));
 console.log (PhotoObject.getPhotoPosts(0, 5, {likes:'2'}));
-console.log (PhotoObject.getPhotoPosts(0, 2, {createdAt: new Date('2018-02-23T23:00:00')}));
-console.log (PhotoObject.getPhotoPosts(0, 2, ocean));
-*/
+console.log (PhotoObject.getPhotoPosts(0, 2, {createdAt: new Date('2018-02-23T23:00:00')}));*/
+//console.log (PhotoObject.getPhotoPosts(0, 2, ocean));
+
 const view = new View ();
 view.showPhotoPosts();
-view.addPhotoPost(photoPosts[1]);
-view.addPhotoPost(photoPosts[2]);
-view.addPhotoPost(photoPosts[3]);
-view.removePhotoPost(1)
-view.editPhotoPost(1, photoPosts[4]);
-view.personalInformation();
-view.authorsShow();
+//view.addPhotoPost(photoPosts[1]);
+//view.addPhotoPost(photoPosts[2]);
+//view.addPhotoPost(photoPosts[3]);
+//view.removePhotoPost(1)
+
+//view.personalInformation();
+//view.authorsShow();
+//view.showPhotoPosts();
+//view.showPhotoPosts();
+//view.removePhotoPost(1);
+//view.editPhotoPost(1, photoPosts[4]);
+var loadmore = document.getElementById('LoadMore');
+var remove = document.getElementById('Remove');
+var add = document.getElementById('AddPhoto');
+var logout = document.getElementById('LogOut');
+var login = document.getElementById('LogIn');
+document.getElementById("LogIn").hidden = true;
+function handleClickShow()
+{
+    view.showPhotoPosts();
+}
+function handleClickRemove(event)
+{
+    view.removePhotoPost(event.target.parentNode.parentNode.getAttribute('data-id'));
+}
+//console.log (PhotoObject.addPhotoPost(photoPosts[1]));
+//console.log (PhotoObject.addPhotoPost(photoPosts[1]));
+//console.log (PhotoObject.addPhotoPost(photoPosts[1]));
+function handleClickAdd(list)
+{
+   console.log (PhotoObject.addPhotoPost(photoPosts[2]));
+}
+function handleClickLogOut()
+{
+   document.getElementById("MyGallery").hidden = true;
+   document.getElementById("AddPhoto").hidden = true;
+   document.getElementById("MyFriends").hidden = true;
+   document.getElementById("AddFriend").hidden = true;
+   document.getElementById("Notifications").hidden = true;
+   document.getElementById("deletePhoto").hidden = true;
+   document.getElementById("name").hidden = true;
+   document.getElementById("avatar").hidden = true;
+   document.getElementById("LogIn").hidden = false;
+   document.getElementById("LogOut").hidden = true;
+}
+function handleClickLogIn()
+{
+   document.getElementById("MyGallery").hidden = false;
+   document.getElementById("AddPhoto").hidden = false;
+   document.getElementById("MyFriends").hidden = false;
+   document.getElementById("AddFriend").hidden = false;
+   document.getElementById("Notifications").hidden = false;
+   document.getElementById("deletePhoto").hidden = false;
+   document.getElementById("name").hidden = false;
+   document.getElementById("avatar").hidden = false;
+   document.getElementById("LogIn").hidden = true;
+   document.getElementById("LogOut").hidden = false;
+}
+loadmore.addEventListener('click', handleClickShow);
+remove.addEventListener('click', handleClickRemove);
+add.addEventListener('click', handleClickAdd);
+logout.addEventListener('click', handleClickLogOut);
+login.addEventListener('click', handleClickLogIn);
+
+
+

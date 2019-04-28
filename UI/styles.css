@@ -72,31 +72,31 @@ body {
     width: 100%;
     height: 100%;
   }
-  #MyGallery>a {
+  #MyGallery>button {
     position: absolute;
     font-size: 2em;
     top: 30%;
     left: 0%;
   }
-  #AddPhoto>a {
+  #AddPhoto>button {
     position: absolute;
     font-size: 2em;
     top: 30%;
     left: 20%;
   }
-  #MyFriends>a{
+  #MyFriends>button{
     position: absolute;
     font-size: 2em;
     top: 30%;
     left: 40%;
   }
-  #AddFriend>a {
+  #AddFriend>button {
     position: absolute;
     font-size: 2em;
     top: 30%;
     left: 60%;
   }
-  #Notifications>a {
+  #Notifications>button {
     position: absolute;
     font-size: 2em;
     top: 30%;
@@ -186,8 +186,12 @@ body {
   #textInput{
     position: absolute;
     left: 50%;
-    top: 30%;
+    top: 70%;
     z-index: 200;
     font-size: 5em;
+  }
+  #button {
+    left: 50%;
+    top: 30%;
   }
   
